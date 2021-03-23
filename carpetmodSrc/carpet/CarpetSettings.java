@@ -44,7 +44,7 @@ public class CarpetSettings
     public static boolean locked = false;
 
     // TODO: replace these constants at build time
-    public static final String carpetVersion = "v20_09_08";
+    public static final String carpetVersion = "v21_01_06b";
     public static final String minecraftVersion = "1.12.2";
     public static final String mcpMappings = "39-1.12";
 
@@ -86,6 +86,11 @@ public class CarpetSettings
             "Also enables gray carpet placement action if 'carpets' rule is turned on as well"
     })
     public static boolean commandBlockInfo = true;
+
+    @Rule(desc = "Enables /loadchunk command", category = COMMANDS, extra = {
+            "Loads a chunk remotely"
+    })
+    public static boolean commandLoadChunk = true;
 
     @Rule(desc = "Enables /entityinfo command", category = COMMANDS, extra = {
             "Also enables yellow carpet placement action if 'carpets' rule is turned on as well"
@@ -182,6 +187,9 @@ public class CarpetSettings
         return true;
     }
 
+    @Rule(desc = "Beacons send out async block updates when powered", category = CREATIVE)
+    public static boolean asyncBeaconUpdates = false;
+
     @Rule(desc = "Quasi Connectivity doesn't require block updates.", category = EXPERIMENTAL, extra = {
             "All redstone components will send extra block updates downwards",
             "Affects hoppers, droppers and dispensers"
@@ -234,6 +242,11 @@ public class CarpetSettings
             "1 to 15 gt per delay added (1-15 block data), 0 (white) adds 100gt per tick"
     })
     public static boolean repeaterPoweredTerracotta = false;
+
+    @Rule(desc = "Observer delays depends on stained hardened clay aka terracotta on which they are placed", category = {EXPERIMENTAL, CREATIVE}, extra = {
+            "1 to 15 gt per delay added (1-15 block data), 0 (white) adds 100gt per tick"
+    })
+    public static boolean observerPoweredTerracotta = false;
 
     @Rule(desc = "TNT doesn't update when placed against a power source", category = TNT)
     public static boolean TNTDoNotUpdate = false;
