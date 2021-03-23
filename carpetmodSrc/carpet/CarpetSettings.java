@@ -150,6 +150,9 @@ public class CarpetSettings
     @Rule(desc = "Reduces the permition level to kick players for everyone.", category = COMMANDS)
     public static boolean publicKick;
 
+    @Rule(desc = "Filter command block output only to specified positions.", category = COMMANDS)
+    public static boolean CMBFilter;
+
     // ===== CREATIVE TOOLS ===== //
 
     @Rule(desc = "Emerald ore receiving a block update will throw a StackOverflowError, simulating an update suppressor.", category = CREATIVE)

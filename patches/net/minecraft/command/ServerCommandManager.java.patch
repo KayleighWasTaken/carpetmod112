@@ -1,6 +1,13 @@
 --- ../src-base/minecraft/net/minecraft/command/ServerCommandManager.java
 +++ ../src-work/minecraft/net/minecraft/command/ServerCommandManager.java
-@@ -33,6 +33,8 @@
+@@ -1,5 +1,6 @@
+ package net.minecraft.command;
+ 
++import carpet.helpers.CMBFilter;
+ import net.minecraft.command.server.CommandBanIp;
+ import net.minecraft.command.server.CommandBanPlayer;
+ import net.minecraft.command.server.CommandBroadcast;
+@@ -33,6 +34,8 @@
  import net.minecraft.util.text.TextComponentTranslation;
  import net.minecraft.util.text.TextFormatting;
  
@@ -9,7 +16,7 @@
  public class ServerCommandManager extends CommandHandler implements ICommandListener
  {
      private final MinecraftServer field_184880_a;
-@@ -90,6 +92,9 @@
+@@ -90,6 +93,9 @@
          this.func_71560_a(new CommandReload());
          this.func_71560_a(new CommandFunction());
  
@@ -19,3 +26,48 @@
          if (p_i46985_1_.func_71262_S())
          {
              this.func_71560_a(new CommandOp());
+@@ -118,32 +124,30 @@
+ 
+     public void func_152372_a(ICommandSender p_152372_1_, ICommand p_152372_2_, int p_152372_3_, String p_152372_4_, Object... p_152372_5_)
+     {
+-        boolean flag = true;
+         MinecraftServer minecraftserver = this.field_184880_a;
+ 
+-        if (!p_152372_1_.func_174792_t_())
+-        {
+-            flag = false;
+-        }
+-
+         ITextComponent itextcomponent = new TextComponentTranslation("chat.type.admin", new Object[] {p_152372_1_.func_70005_c_(), new TextComponentTranslation(p_152372_4_, p_152372_5_)});
+         itextcomponent.func_150256_b().func_150238_a(TextFormatting.GRAY);
+         itextcomponent.func_150256_b().func_150217_b(Boolean.valueOf(true));
+ 
+-        if (flag)
++        for (EntityPlayer entityplayer : minecraftserver.func_184103_al().func_181057_v())
+         {
+-            for (EntityPlayer entityplayer : minecraftserver.func_184103_al().func_181057_v())
++            if (entityplayer != p_152372_1_ && minecraftserver.func_184103_al().func_152596_g(entityplayer.func_146103_bH()) && p_152372_2_.func_184882_a(this.field_184880_a, p_152372_1_))
+             {
+-                if (entityplayer != p_152372_1_ && minecraftserver.func_184103_al().func_152596_g(entityplayer.func_146103_bH()) && p_152372_2_.func_184882_a(this.field_184880_a, p_152372_1_))
+-                {
+-                    boolean flag1 = p_152372_1_ instanceof MinecraftServer && this.field_184880_a.func_183002_r();
+-                    boolean flag2 = p_152372_1_ instanceof RConConsoleSource && this.field_184880_a.func_181034_q();
++                boolean flag1 = p_152372_1_ instanceof MinecraftServer && this.field_184880_a.func_183002_r();
++                boolean flag2 = p_152372_1_ instanceof RConConsoleSource && this.field_184880_a.func_181034_q();
+ 
+-                    if (flag1 || flag2 || !(p_152372_1_ instanceof RConConsoleSource) && !(p_152372_1_ instanceof MinecraftServer))
+-                    {
++                if (flag1 || flag2)
++                {
++                    if (p_152372_1_.func_174792_t_()) {
+                         entityplayer.func_145747_a(itextcomponent);
+                     }
+                 }
++                else if (!(p_152372_1_ instanceof RConConsoleSource) && !(p_152372_1_ instanceof MinecraftServer)) {
++                    if (CMBFilter.sendFeedback(p_152372_1_, entityplayer)) {
++                        entityplayer.func_145747_a(itextcomponent);
++                    }
++                }
+             }
+         }
+ 
