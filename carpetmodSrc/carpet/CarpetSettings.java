@@ -44,7 +44,7 @@ public class CarpetSettings
     public static boolean locked = false;
 
     // TODO: replace these constants at build time
-    public static final String carpetVersion = "v21_01_06b";
+    public static final String carpetVersion = "v21_05_29";
     public static final String minecraftVersion = "1.12.2";
     public static final String mcpMappings = "39-1.12";
 
@@ -95,6 +95,11 @@ public class CarpetSettings
     @Rule(desc = "Enables /entityinfo command", category = COMMANDS, extra = {
             "Also enables yellow carpet placement action if 'carpets' rule is turned on as well"
     })
+    public static boolean commandLazyChunkBehavior = false;
+    @Rule(desc = "Enables /lazychunkbehavior command", category = COMMANDS, extra = {
+            "Makes a chunk act like a lazy chunk for entities and falling sand"
+    })
+    
     public static boolean commandEntityInfo = true;
 
     @Rule(desc = "Enables /unload command to inspect chunk unloading order", category = COMMANDS)
